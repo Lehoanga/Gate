@@ -1,0 +1,137 @@
+﻿@model PagedList.IPagedList<Gate.Models.ROOMTICKET>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMeet.cshtml";
+}
+
+<div class="container mt-5 p-0 bg-white p-4 rounded shadow">
+    @using (Html.BeginForm(FormMethod.Get))
+    {
+        <div class="form-row">
+            <div class="col-lg-2 col-3 mb-3 d-flex align-items-end justify-content-start">
+                <div class="dropdown">
+                    <button class="btn btn-success dropdown-toggle px-4" type="button" data-toggle="dropdown" aria-expanded="false">
+                        Lọc
+                    </button>
+                    <div class="dropdown-menu">
+                        @Html.ActionLink("Chờ lấy thẻ", "Index", new { sortOrder = ViewBag.CLTSortParm, currentFilter = ViewBag.CurrentFilter, SearchDateStart = ViewBag.CurrentDateStart, SearchDateEnd = ViewBag.SearchDateEnd }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Đang mượn thẻ", "Index", new { sortOrder = ViewBag.DMTSortParm, currentFilter = ViewBag.CurrentFilter, SearchDateStart = ViewBag.CurrentDateStart, SearchDateEnd = ViewBag.SearchDateEnd }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Đã trả thẻ", "Index", new { sortOrder = ViewBag.DTTSortParm, currentFilter = ViewBag.CurrentFilter, SearchDateStart = ViewBag.CurrentDateStart, SearchDateEnd = ViewBag.SearchDateEnd }, new { @class = "dropdown-item" })
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Tất cả", "Index", new { sortOrder = ViewBag.AllSortParm, currentFilter = ViewBag.CurrentFilter, SearchDateStart = ViewBag.CurrentDateStart, SearchDateEnd = ViewBag.SearchDateEnd }, new { @class = "dropdown-item" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 d-none d-lg-block mb-3">
+
+            </div>
+            <div class="col-2 mb-3 text-right">
+                @Html.TextBox("SearchDateStart", ViewBag.CurrentDateStart as string, new { @class = "form-control", @type = "date" })
+            </div>
+            <div class="col-2 mb-3 d-flex align-items-end justify-content-end">
+                @Html.TextBox("SearchDateEnd", ViewBag.CurrentDateEnd as string, new { @class = "form-control", @type = "date" })
+            </div>
+
+            <div class="col-lg-2 col-3 mb-3">
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            </div>
+            <div class="col-1 mb-3 d-flex align-items-end">
+                <button class="btn btn-success" type="submit">Tìm</button>
+            </div>
+            @*@Html.CheckBox("MTSCheck", new { @class = "form-check" })*@
+            <div class="pt-2">
+                <a class="btn-ex" href="@Url.Action("ExportToExcel", "RoomTicket", new { sortOrder = ViewBag.CurrentSort, searchString = ViewBag.CurrentFilter, SearchDateStart = ViewBag.CurrentDateStart, SearchDateEnd = ViewBag.SearchDateEnd })"><i class="fa-solid fa-file-export"></i> Excel</a>
+            </div>
+        </div>
+
+    }
+
+
+
+
+    <table class="table table-bordered bg-white" cellspacing="0">
+        <thead>
+            <tr class="table-pink text-table-index text-center">
+                <th class="text-light">Số Ticket</th>
+                <th class="text-light">Người đặt</th>
+                <th class="text-light">Mã phòng họp</th>
+                <th class="text-light ">Thời gian bắt đầu họp</th>
+                <th class="text-light">Thời gian kết thúc họp</th>
+                <th class="text-light">Thời gian lấy thẻ</th>
+                <th class="text-light ">Thời gian trả thẻ</th>
+                <th class="text-light ">Tình trạng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr class="text-table-index-body" cellspacing="0" data-href="@Url.Action("Detail","RoomTicket", new {id = item.ID})">
+
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.ticketID)
+                    </td>
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.bookingName)
+                    </td>
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.roomID)
+                    </td>
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.datetimeStart)
+                    </td>
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.datetimeEnd)
+                    </td>
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.datetimeCheckin)
+                    </td>
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.datetimeCheckout)
+                    </td>
+                    @{ if (item.borrowStatus == false && item.returnStatus == false)
+                        {
+                            <td class="p-2" style="font-size: 16px;">
+                                <span class="badge badge-secondary py-1 px-2">
+                                    Chờ lấy thẻ
+                                </span>
+                            </td>
+                        }
+                        if (item.borrowStatus == true && item.returnStatus == false)
+                        {
+                            <td class="p-2" style="font-size: 16px;">
+                                <span class="badge badge-danger py-1 px-2">
+                                    Đang mượn thẻ
+                                </span>
+                            </td>
+                        }
+                        if (item.returnStatus == true)
+                        {
+                            <td class="p-2" style="font-size: 16px;">
+                                <span class="badge badge-success py-1 px-2">
+                                    Đã trả thẻ
+                                </span>
+                            </td>
+
+                        }
+
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, SearchDateStart = ViewBag.CurrentDateStart, SearchDateEnd = ViewBag.SearchDateEnd }))
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function () {
+        $(document.body).on("click", "tr[data-href]", function () {
+            window.location.href = this.dataset.href;
+        });
+    });
+</script>

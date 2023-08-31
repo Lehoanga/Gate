@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Gate.Models.ROOM>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMeet.cshtml";
+}
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<div class="container">
+    <div class="body-tick mx-md-5 mt-5 pb-5">
+        <div class="text-center h4 py-2 m-0 form-header">
+            THÊM THẺ PHÒNG HỌP
+        </div>
+        <div class="bg-white">
+            @if (@ViewBag.ErrorTicket != null)
+            {
+                <div class="alert alert-warning" role="alert">
+                    @ViewBag.ErrorTicket
+                </div>
+            }
+            @if (@ViewBag.ErrorTicketSL != null)
+            {
+                <div class="alert alert-warning" role="alert">
+                    @ViewBag.ErrorTicketSL
+                </div>
+            }
+
+            <form method="post" name="Form" onsubmit="return validate()">
+                <div id="divCont">
+                    <div class="collapse show idIN " id="collapseExample">
+                        <div class="card card-body border-0 text-left pt-0 p checkbox-card pt-3">
+
+                            <div class="form-row form-group">
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Mã phòng họp:
+                                    </small>
+                                    <input name="roomID" id="taxiCardNum" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row form-group">
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Thông tin phòng:
+                                    </small>
+                                    <input name="inforRoom" type="text" class="form-control">
+                                </div>
+                            </div>                            
+                            <button type="submit" class="btn btn-primary font-weight-bold">Thêm</button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function validate() {
+        var a = document.forms["Form"]["roomID"].value;
+        var b = document.forms["Form"]["inforRoom"].value;        
+
+        if (a === "" || b === "") {
+            alert("Điền đầy đủ thông tin");
+            return false;
+        }        
+        return true;
+    }
+</script>
+

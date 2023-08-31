@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Gate.Models.TAXICARD>
+
+@{
+    ViewBag.Title = "Quản lý thẻ Taxi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container mt-5 p-0 bg-white p-4 rounded shadow">
+    <div class="row">
+        <div class="mb-3" style="margin-left: 12px;">
+            <a href="@Url.Action("Create", "TaxiCard")" class="btn btn-body mx-1 d-flex align-items-center">
+                <i class="fa-solid fa-square-plus mr-2"></i>
+                <div class="">Thêm thẻ Taxi</div>
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-bordered bg-white" cellspacing="0">
+        <thead>
+            <tr class="table-pink text-table-index text-center">
+                <th class="col-1 text-light">Số thẻ</th>
+                <th class="col-2 text-light">Hãng xe</th>
+                <th class="col-1 text-light ">Bộ phận</th>
+                <th class="col-1 text-light ">Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="text-table-index-body" data-href="@Url.Action("Detail","TaxiCard", new {id = item.cardID})">
+
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.cardNum)
+                    </td>
+
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.taxiCom)
+                    </td>
+                    <td class="p-2 h7">
+                        @Html.DisplayFor(modelItem => item.department)
+                        @{ if (item.ownerName != null)
+                            {
+                                <span> - </span>
+                                @Html.DisplayFor(modelItem => item.ownerName)
+                            }
+                        }
+                    </td>
+                    @{if (item.isReady == true)
+                        {
+                            <td class="p-2 h7 text-success font-weight-bold">
+                                <span>Chưa mượn</span>
+                                <i class="fa-solid fa-circle text-success ml-1"></i>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="p-2 h7 text-danger font-weight-bold">
+                                <span>Đang mượn</span>
+                                <i class="fa-solid fa-circle text-danger ml-1"></i>
+                            </td>
+
+                        }
+
+                    }
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function () {
+        $(document.body).on("click", "tr[data-href]", function () {
+            window.location.href = this.dataset.href;
+        });
+    });
+</script>

@@ -1,0 +1,188 @@
+﻿.logo_FPT {
+    height: 60px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 22px;
+    box-shadow: 0px 15px 10px -15px rgba(0, 0, 0, 0.35);
+}
+
+.header_center {
+    font-size: 50px;
+    font-weight: 700;
+    color: #1569b2;
+
+}
+
+.button-login {
+    background: #f2721e;
+    border: 1px solid #f2721e;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    text-decoration: none;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+}
+
+.button-login:hover,
+.button-login:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #f2721e;
+}
+
+.button-24:active {
+    opacity: .5;
+}
+
+.center_body {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 50px 0 0 0;
+}
+
+.item_header {
+    width: 270px;
+    height: 100px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.item_1 {
+    background-color: #1569b2;
+    border: solid 1px #1569b2;
+}
+
+.item_2 {
+    background-color: #f8b12d;
+    border: solid 1px #f8b12d;
+}
+
+.item_3 {
+    background-color: #f84949;
+    border: solid 1px #f84949;
+}
+
+.item_4 {
+    background-color: #09ad03;
+    border: solid 1px #09ad03;
+}
+
+.item_body {
+    padding-top: 10px;
+    border-bottom: solid 1px #dcdedf;
+    border-left: solid 1px #dcdedf;
+    border-right: solid 1px #dcdedf;
+}
+
+/* CSS */
+.button-item {
+    appearance: none;
+    background-color: transparent;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #3B3B3B;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    outline: none;
+    padding: 8px;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 200px;
+    will-change: transform;
+}
+
+.button-item:disabled {
+    pointer-events: none;
+}
+
+.button-item:hover {
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+.button-item:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.item_body-button {
+    margin: 0 0 10px 10px;
+}
+
+.button_b1 {
+border: 2px solid #1569b2;
+}
+
+.button_b1:hover {
+    background-color: #1569b2;
+}
+
+.button_b2 {
+    border: 2px solid #f8b12d;
+}
+
+.button_b2:hover {
+    background-color: #f8b12d;
+}
+
+.button_b3 {
+    border: 2px solid #f84949;
+}
+
+.button_b3:hover {
+    background-color: #f84949;
+}
+
+.button_b4 {
+    border: 2px solid #09ad03;
+}
+
+.button_b4:hover {
+    background-color: #09ad03;
+}
+
+.item_box {
+box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+border-radius: 20px 20px 0 0;
+}
+
+.item_bt_c {
+display: flex;
+align-items: center;
+}

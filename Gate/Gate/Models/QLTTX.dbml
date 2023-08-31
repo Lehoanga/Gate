@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLPTX" Class="QLTTXDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-MC3O297;Initial Catalog=QLPTX;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QLPTXConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TAXITICKET" Member="TAXITICKETs">
+    <Type Name="TAXITICKET">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ticketID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="startDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="endDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="userName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="loggerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="takecardDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="returncardDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="borrowerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="borrowStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="returnStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="cardNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TAXICARD" Member="TAXICARDs">
+    <Type Name="TAXICARD">
+      <Column Name="cardID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="cardNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="taxiCom" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="department" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="isReady" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ownerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ROOM" Member="ROOMs">
+    <Type Name="ROOM">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="roomID" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Column Name="inforRom" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="isReady" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ROOMTICKET" Member="ROOMTICKETs">
+    <Type Name="ROOMTICKET">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ticketID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bookingName" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="borrowerName" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="datetimeStart" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="datetimeEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="datetimeCheckin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="datetimeCheckout" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="borrowStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="returnStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="roomID" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Assets/fontawesome/css/all.min.css">
+    <link href="~/Assets/css/QLMTTX.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md header">
+        <a class="navbar-brand">
+            <div class="h5 text-white m-0 py-1">
+                <img style="height:60px;" src="~/Assets/img/FPT_logo_2010.svg.png" />
+            </div>
+        </a>
+        <span class="font-weight-bold text-all">|</span>
+
+        <a class="navbar-brand" href="@Url.Action("Index", "TaxiTicket")">
+            <div style="font-weight:700;" class="h4 m-0 py-1 mr-lg-5 ml-3 text-all">QUẢN LÝ MƯỢN THẺ TAXI</div>
+        </a>
+       
+        <button class="navbar-toggler btn-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="collapse d-sm-block navbar-collapse">
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ml-xl-5">
+                <li class="nav-item active">
+                    <a href="@Url.Action("Create", "TaxiTicket")" class="btn btn-header mx-1 d-flex align-items-center">
+                        <i class="fa-solid fa-square-plus mr-2"></i>
+                        <div class="">Tạo Phiếu</div>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="@Url.Action("Index", "TaxiCard")" class="btn btn-header mx-1 d-flex align-items-center">
+                        <i class="fa-solid fa-clipboard mr-2"></i>
+                        <div class="">Quản lý thẻ</div>
+                    </a>
+                </li>
+               
+                <li class="nav-item active">
+                    <a href="@Url.Action("Index", "RoomTicket")" class="btn btn-header mx-1 d-flex align-items-center" style="color: #1569b2 !important;">
+                        <i class="fa-solid fa-table mr-2"></i>
+                        <div class="">Quản lý phòng họp</div>
+                    </a>
+                </li>
+            </ul>
+            <div>
+                <a href="@Url.Action("Logout", "Home")" class="btn btn-header-logout mx-1 d-flex align-items-center">
+                    <i class="fa-solid fa-right-from-bracket mr-2"></i>
+                    <div class="">Đăng xuất</div>
+                </a>
+            </div>
+        </div>
+
+
+    </nav>
+
+    @RenderBody()
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="~/Assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

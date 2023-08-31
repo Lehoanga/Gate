@@ -1,0 +1,221 @@
+﻿@model Gate.Models.TAXITICKET
+
+@{
+    ViewBag.Title = "Chi tiết phiếu mượn thẻ Taxi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    input[disabled] {
+        color: black;
+        background-color: #faf5f5 !important;
+    }
+</style>
+
+<div class="container">
+    <div class="body-tick mx-md-5 mt-5 pb-5">
+        <div class="text-center h4 py-2 m-0 form-header">
+            CHI TIẾT PHIẾU MƯỢN
+        </div>
+        <div class="bg-white">
+            @if (@ViewBag.ErrorTicket != null)
+            {
+                <div class="alert alert-warning" role="alert">
+                    @ViewBag.ErrorTicket
+                </div>
+            }
+            @if (@ViewBag.ErrorTicketSL != null)
+            {
+                <div class="alert alert-warning" role="alert">
+                    @ViewBag.ErrorTicketSL
+                </div>
+            }
+
+            <form method="post" name="Form" onsubmit="return validate()">
+                <div id="divCont">
+                    <div class="collapse show idIN " id="collapseExample">
+                        <div class="card card-body border-0 text-left pt-0 p checkbox-card pt-3">
+
+                            <input name="ID" type="number" class="form-control d-none" value="@ViewBag.ticketDetail.ID">
+
+                            <div class="form-row form-group">
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Số Ticket:
+                                    </small>
+                                    <input name="ticketID" id="ticketID" type="number" class="form-control" value="@ViewBag.ticketDetail.ticketID">
+                                </div>
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Số thẻ Taxi:
+                                    </small>
+                                    <select name="taxicardNum" class="form-control">
+                                        <option value="@ViewBag.TicketCardNum.cardNum" selected>@ViewBag.TicketCardNum.cardNum - @ViewBag.TicketCardNum.taxiCom - @ViewBag.TicketCardNum.department </option>
+                                        @{ foreach (var item in ViewBag.taxiCard)
+                                            {
+                                                <option value="@item.cardNum">@item.cardNum - @item.taxiCom - @item.department </option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            @{ string formattedStart = @ViewBag.ticketDetail.startDate.ToString("yyyy/MM/dd");}
+                            @{ string formattedEnd = @ViewBag.ticketDetail.endDate.ToString("yyyy/MM/dd");}
+                            <div class="form-row form-group">
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Ngày đi:
+                                    </small>
+                                    <input name="startDate" type="date" class="form-control" value="@formattedStart">
+                                </div>
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Ngày về:
+                                    </small>
+                                    <input name="endDate" type="date" class="form-control" value="@formattedEnd">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <small class="form-text text-muted mb-1">
+                                    Người đi:
+                                </small>
+                                <input name="userName" type="text" class="form-control" value="@ViewBag.ticketDetail.userName">
+                            </div>
+                            <div class="form-group">
+                                <small class="form-text text-muted mb-1">
+                                    Người tạo yêu cầu:
+                                </small>
+                                <input name="loggerName" id="0" type="text" class="form-control" value="@ViewBag.ticketDetail.loggerName">
+                            </div>
+                            <div class="form-group">
+                                <small class="form-text text-muted mb-1">
+                                    Người mượn thẻ:
+                                </small>
+                                <input name="borrowerName" id="0" type="text" class="form-control" value="@ViewBag.ticketDetail.borrowerName">
+                            </div>
+
+                            @if (@ViewBag.ticketDetail.borrowStatus == true && @ViewBag.ticketDetail.returnStatus == true)
+                            {
+                                <div class="form-group">
+                                    <small class="form-text text-muted mb-1">
+                                        Hóa đơn (VNĐ):
+                                    </small>
+                                    <input name="borrowerName" id="0" type="text" class="form-control" value="@ViewBag.ticketDetail.Price">
+                                </div>
+                            }
+
+                            <div class="form-row form-group">
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Thời gian lấy thẻ:
+                                    </small>
+                                    <input name="takecardDate" type="text" class="form-control" value="@ViewBag.ticketDetail.takecardDate" disabled>
+                                </div>
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Thời gian trả thẻ:
+                                    </small>
+                                    <input name="returncardDate" type="text" class="form-control" value="@ViewBag.ticketDetail.returncardDate" disabled>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                @if (@ViewBag.ticketDetail.borrowStatus == false)
+                                {
+                                    <button type="submit" name="submit" value="edit" class="btn btn-success font-weight-bold px-5">Lưu</button>
+                                    <button type="submit" name="submit" value="checkin" class="btn btn-primary font-weight-bold px-5">Đã lấy thẻ</button>
+                                }
+                                @if (@ViewBag.ticketDetail.borrowStatus == true && @ViewBag.ticketDetail.returnStatus == false)
+                                {
+                                    <button type="submit" class="btn btn-success font-weight-bold px-5" disabled>Lưu</button>
+                                    <button type="button" class="btn btn-primary font-weight-bold px-5" data-toggle="modal" data-target="#exampleModal">Trả thẻ</button>
+                                    @*<button type="submit" name="submit" value="checkout" class="btn btn-primary font-weight-bold px-5">Đã trả thẻ</button>*@
+                                }
+                                @if (@ViewBag.ticketDetail.borrowStatus == true && @ViewBag.ticketDetail.returnStatus == true)
+                                {
+                                    <button type="submit" class="btn btn-success font-weight-bold px-5" disabled>Lưu</button>
+                                    <button type="submit" class="btn btn-primary font-weight-bold px-5" disabled>Đã trả thẻ</button>
+                                    if (@ViewBag.ticketDetail.Price == null || @ViewBag.ticketDetail.Price == "")
+                                    {
+                                        <button type="button" class="btn btn-info font-weight-bold px-5" data-toggle="modal" data-target="#exampleModal">Nhập hóa đơn</button>
+                                    }
+                                }
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Nhập hóa đơn</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <small class="form-text text-muted mb-1 text-left">
+                                                        Hóa đơn (VNĐ):
+                                                    </small>
+                                                    <input name="Price" id="Price" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <button type="submit" name="submit" value="checkout" class="btn btn-primary font-weight-bold px-5">Lưu</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function validate() {
+        var a = document.forms["Form"]["ticketID"].value;
+        var b = document.forms["Form"]["taxicardNum"].value;
+        var c = document.forms["Form"]["startDate"].value;
+        var d = document.forms["Form"]["endDate"].value;
+        var e = document.forms["Form"]["userName"].value;
+        var f = document.forms["Form"]["loggerName"].value;
+
+        if (a === "" || b === "" || c === "" || d === "" || e === "" || f === "") {
+            alert("Điền đầy đủ thông tin");
+            return false;
+        }
+        return true;
+    }
+
+    
+    // Hàm định dạng số thành chuỗi với dấu chấm ngăn cách hàng nghìn
+    function formatNumberWithCommas(value) {
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    // Hàm xóa các ký tự không phải số
+    function removeNonNumericCharacters(value) {
+        return value.replace(/[^\d]/g, "");
+    }
+
+    var priceInput = document.getElementById("Price");
+
+    priceInput.addEventListener("input", function () {
+        var inputValue = removeNonNumericCharacters(this.value);
+        var numericValue = parseFloat(inputValue);
+
+        if (!isNaN(numericValue)) {
+            var formattedValue = formatNumberWithCommas(numericValue);
+            this.value = formattedValue;
+        } else {
+            this.value = "";
+        }
+    });
+
+</script>

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Gate.Models.TAXICARD>
+
+@{
+    ViewBag.Title = "Thêm thẻ Taxi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Thêm thư viện jQuery UI -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<div class="container">
+    <div class="body-tick mx-md-5 mt-5 pb-5">
+        <div class="text-center h4 py-2 m-0 form-header">
+            THÊM THẺ TAXI
+        </div>
+        <div class="bg-white">
+            @if (@ViewBag.ErrorTicket != null)
+            {
+                <div class="alert alert-warning" role="alert">
+                    @ViewBag.ErrorTicket
+                </div>
+            }
+            @if (@ViewBag.ErrorTicketSL != null)
+            {
+                <div class="alert alert-warning" role="alert">
+                    @ViewBag.ErrorTicketSL
+                </div>
+            }
+
+            <form method="post" name="Form" onsubmit="return validate()">
+                <div id="divCont">
+                    <div class="collapse show idIN " id="collapseExample">
+                        <div class="card card-body border-0 text-left pt-0 p checkbox-card pt-3">
+
+                            <div class="form-row form-group">
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Số thẻ Taxi:
+                                    </small>
+                                    <input name="taxiCardNum" id="taxiCardNum" type="number" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row form-group">
+                                <div class="col">
+                                    <small class="form-text text-muted mb-1">
+                                        Hãng xe:
+                                    </small>
+                                    <input name="taxiCom" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <small class="form-text text-muted mb-1">
+                                    Bộ phận:
+                                </small>
+                                <input name="Department" type="text" class="form-control">
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input checkOwner" name="checkOwner">
+                                <label class="form-check-label text-muted" style=" font-size: .880em; font-weight: 400;" for="exampleCheck1">Thẻ cá nhân</label>
+                            </div>
+                            <div class="form-group boxOwner" style="display: none;">
+                                <small class="form-text text-muted mb-1">
+                                    Tên chủ thẻ:
+                                </small>
+                                <input name="ownerName" type="text" class="form-control ownerName">
+                            </div>
+                            <button type="submit" class="btn btn-primary font-weight-bold">Thêm</button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $(".checkOwner").click(function (event) {
+            var x = $(this).is(':checked');
+            if (x == true) {
+                $(this).parents(".checkbox-card").find('.boxOwner').show();
+                $(this).parents(".checkbox-card").find('.ownerName').val('');
+            }
+            else {
+                $(this).parents(".checkbox-card").find('.boxOwner').hide();
+                $(this).parents(".checkbox-card").find('.ownerName').val('');
+            }
+        });
+    })
+
+    function validate() {
+        var a = document.forms["Form"]["taxiCardNum"].value;
+        var b = document.forms["Form"]["taxiCom"].value;
+        var c = document.forms["Form"]["Department"].value;
+        var d = document.forms["Form"]["checkOwner"].checked;
+        var e = document.forms["Form"]["ownerName"].value;
+
+        if (a === "" || b === "" || c === "") {
+            alert("Điền đầy đủ thông tin");
+            return false;
+        }
+
+        if (d == true && e == "") {
+            alert("Điền đầy đủ thông tin");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+
+
